@@ -1,4 +1,4 @@
-const { createMenuItem, getMenuItemByStand, findMenuItemById, updateMenuItem, deleteMenuItem } = require("../db/queries/menu.queries")
+const { createMenuItem, getMenuItemByStand, findMenuItemById, updateMenuItem } = require("../db/queries/menu.queries")
 const { getActiveAssignmentBySeller } = require("../db/queries/standAssignment.queries")
 
 
@@ -63,7 +63,14 @@ async function deleteMenuItemController(req,res,next) {
         if (hasNoAssignment || isDiffStand){
             return res.status(403).json({stand: 'item and stand do not match'})
         }else{
-            const deletedMenuItem =await deleteMenuItem(itemId)
+            const softDeletedItem =await updateMenuItem(
+                findMenuWithId.name,
+                findMenuWithId.description,
+                findMenuWithId.quantity,
+                findMenuWithId.price,
+                false,
+                itemdId
+            )
             return res.status(200).json({item: deletedMenuItem})
         }
     }catch(error){
