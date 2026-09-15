@@ -103,7 +103,7 @@ function ManageMenu() {
             </form>
 
             {menuItems.length === 0 && <p>No menu items yet.</p>}
-            {menuItems.map((item) => (
+            {menuItems.filter(item => item.is_available).map((item) => (
                 <div key={item.id}>
                     <p>{item.name} — Rp{item.price} — Qty: {item.quantity}</p>
                     <button onClick={() => handleDelete(item.id)}>Delete</button>
