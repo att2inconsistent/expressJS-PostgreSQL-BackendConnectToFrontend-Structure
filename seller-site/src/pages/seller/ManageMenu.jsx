@@ -101,7 +101,7 @@ function ManageMenu() {
                 </div>
                 <button type="submit">Add Item</button>
             </form>
-
+            <br></br>
             {menuItems.length === 0 && <p>No menu items yet.</p>}
             {menuItems.filter(item => item.is_available).map((item) => (
                 <div key={item.id}>
