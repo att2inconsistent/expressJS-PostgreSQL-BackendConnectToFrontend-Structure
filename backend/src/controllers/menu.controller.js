@@ -71,7 +71,7 @@ async function deleteMenuItemController(req,res,next) {
                 false,
                 itemdId
             )
-            return res.status(200).json({item: deletedMenuItem})
+            return res.status(200).json({item: softDeletedItem})
         }
     }catch(error){
         next(error)
