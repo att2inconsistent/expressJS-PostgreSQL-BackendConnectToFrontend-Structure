@@ -69,7 +69,7 @@ async function deleteMenuItemController(req,res,next) {
                 findMenuWithId.quantity,
                 findMenuWithId.price,
                 false,
-                itemdId
+                itemId
             )
             return res.status(200).json({item: softDeletedItem})
         }
