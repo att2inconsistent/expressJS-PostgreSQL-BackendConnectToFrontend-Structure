@@ -1,4 +1,4 @@
-const { createPaymentProof, updatePaymentProofStatus, findPaymentProofById } = require('../db/queries/paymentProof.queries');
+const { createPaymentProof, updatePaymentProofStatus, findPaymentProofById, getPaymentProofByOrder } = require('../db/queries/paymentProof.queries');
 const { findOrderById, markOrderAsPaid} = require('../db/queries/order.queries');
 const { getActiveAssignmentBySeller } = require('../db/queries/standAssignment.queries');
 
@@ -51,6 +51,27 @@ async function reviewPaymentProofController(req,res,next) {
         }
     }catch(error){
         next(error);
+    }
+
+    async function getPaymentProofByOrderController(req,res,next) {
+        try{
+            const orderId = req.params.id
+            const order = await findOrderById(orderId)
+            if(!order){
+                return res.status(404).json({ message: 'Order not found' });
+            }
+
+             const sellerActvAssgnmnt = await getActiveAssignmentBySeller(req.user.id);
+            const hasNoAssignment = !sellerActvAssgnmnt;
+            const isDiffStand = sellerActvAssgnmnt && order.stand_id !== sellerActvAssgnmnt.stand_id;
+            if(hasNoAssignment || isDiffStand){
+                return res.status(403).json({ message: 'order and stand do not match' });
+            }
+            const proof = await getPaymentProofByOrder(orderId)
+            return res.status(200).json({ proof });
+        }catch(error){
+            next(error)
+        }
     }
 }
 module.exports = { uploadPaymentProofController, reviewPaymentProofController}
