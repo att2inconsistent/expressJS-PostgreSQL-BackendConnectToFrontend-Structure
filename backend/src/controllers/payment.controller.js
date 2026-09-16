@@ -55,7 +55,7 @@ async function reviewPaymentProofController(req,res,next) {
 }
 async function getPaymentProofByOrderController(req,res,next) {
         try{
-            const orderId = req.params.id
+            const orderId = req.params.orderId
             const order = await findOrderById(orderId)
             if(!order){
                 return res.status(404).json({ message: 'Order not found' });

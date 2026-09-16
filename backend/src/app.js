@@ -28,6 +28,8 @@ app.use('/menu', menuRoutes);
 app.use('/order', orderRoutes);
 app.use('/payment', paymentRoutes);
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.get('/test', async (req, res) => {
     try {
         const result = await pool.query('SELECT NOW()');
@@ -39,6 +41,5 @@ app.get('/test', async (req, res) => {
     }
 })
 app.use(errorHandler);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = app;
