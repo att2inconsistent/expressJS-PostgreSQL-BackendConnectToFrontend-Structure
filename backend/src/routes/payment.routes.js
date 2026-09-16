@@ -6,5 +6,6 @@ const { uploadPaymentProofController, reviewPaymentProofController } = require('
 
 router.post('/upload',authenticate, upload.single('paymentProof'), uploadPaymentProofController);
 router.patch('/:id/review', authenticate, reviewPaymentProofController);
+router.get('/order/:orderId', authenticate, getPaymentProofByOrderController);
 
 module.exports = router;

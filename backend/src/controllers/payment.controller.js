@@ -52,8 +52,8 @@ async function reviewPaymentProofController(req,res,next) {
     }catch(error){
         next(error);
     }
-
-    async function getPaymentProofByOrderController(req,res,next) {
+}
+async function getPaymentProofByOrderController(req,res,next) {
         try{
             const orderId = req.params.id
             const order = await findOrderById(orderId)
@@ -61,7 +61,7 @@ async function reviewPaymentProofController(req,res,next) {
                 return res.status(404).json({ message: 'Order not found' });
             }
 
-             const sellerActvAssgnmnt = await getActiveAssignmentBySeller(req.user.id);
+            const sellerActvAssgnmnt = await getActiveAssignmentBySeller(req.user.id);
             const hasNoAssignment = !sellerActvAssgnmnt;
             const isDiffStand = sellerActvAssgnmnt && order.stand_id !== sellerActvAssgnmnt.stand_id;
             if(hasNoAssignment || isDiffStand){
@@ -73,5 +73,4 @@ async function reviewPaymentProofController(req,res,next) {
             next(error)
         }
     }
-}
-module.exports = { uploadPaymentProofController, reviewPaymentProofController}
+module.exports = { uploadPaymentProofController, reviewPaymentProofController, getPaymentProofByOrderController}
