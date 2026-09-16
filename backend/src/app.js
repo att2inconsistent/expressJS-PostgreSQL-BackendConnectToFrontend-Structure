@@ -11,6 +11,7 @@ const errorHandler = require('./middleware/errorHandler');
 const limiter = require('./middleware/rateLimiter');
 const cors = require('cors');
 const allowedOrigins= [process.env.CLIENT_URL, process.env.SELLER_URL];
+const path = require('path');
 app.use(helmet())
 app.use(express.json());
 app.use(cors({
@@ -38,5 +39,6 @@ app.get('/test', async (req, res) => {
     }
 })
 app.use(errorHandler);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = app;
