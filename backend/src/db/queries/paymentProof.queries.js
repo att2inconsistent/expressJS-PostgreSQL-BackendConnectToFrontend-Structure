@@ -16,6 +16,19 @@ async function getPaymentProofByOrder(orderId) {
     const res = await pool.query(query)
     return res.rows[0]
 }
+async function getPaymentProofByStand(standId){
+    const query={
+        text:`
+            SELECT payment_proofs.*
+            FROM payment_proofs
+            JOIN orders ON payment_proofs.order_id = orders.id
+            WHERE orders.stand_id = $1
+        `,
+        values:[standId]
+    }
+    const res = await pool.query(query)
+    return res.rows
+}
 async function updatePaymentProofStatus(status, reviewedBy, proofId){
     const query={
         text:'UPDATE payment_proofs SET status = $1, reviewed_by = $2, reviewed_at = NOW() WHERE id = $3 RETURNING *',
