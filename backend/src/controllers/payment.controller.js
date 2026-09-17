@@ -1,4 +1,4 @@
-const { createPaymentProof, updatePaymentProofStatus, findPaymentProofById, getPaymentProofByOrder } = require('../db/queries/paymentProof.queries');
+const { createPaymentProof, updatePaymentProofStatus, findPaymentProofById, getPaymentProofByOrder, getPaymentProofByStand } = require('../db/queries/paymentProof.queries');
 const { findOrderById, markOrderAsPaid} = require('../db/queries/order.queries');
 const { getActiveAssignmentBySeller } = require('../db/queries/standAssignment.queries');
 
@@ -69,6 +69,18 @@ async function getPaymentProofByOrderController(req,res,next) {
             }
             const proof = await getPaymentProofByOrder(orderId)
             return res.status(200).json({ proof });
+        }catch(error){
+            next(error)
+        }
+    }
+    async function getPaymentProofByStandController(req,res,next) {
+        try{
+            const sellerActvAssignment = await getActiveAssignmentBySeller(req.user.id)
+            if(!sellerActvAssignment){
+                return res.status(403).json({ message: 'user is not assigned to any stand' });
+            }
+            const proofs = await getPaymentProofByStand(sellerActvAssignment.stand_id)
+            return res.status(200).json({proofs})
         }catch(error){
             next(error)
         }
