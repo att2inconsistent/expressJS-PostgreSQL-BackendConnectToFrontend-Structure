@@ -7,6 +7,6 @@ const { uploadPaymentProofController, reviewPaymentProofController, getPaymentPr
 router.post('/upload',authenticate, upload.single('paymentProof'), uploadPaymentProofController);
 router.patch('/:id/review', authenticate, reviewPaymentProofController);
 router.get('/order/:orderId', authenticate, getPaymentProofByOrderController);
-router.get('/stand', authenticate, getPaymentProofByStandController);
+router.get('/stand', authenticate, getPaymentProofByStandContrdedwoller);
 
 module.exports = router;
