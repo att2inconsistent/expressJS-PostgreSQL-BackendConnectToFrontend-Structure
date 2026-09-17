@@ -46,4 +46,4 @@ async function findPaymentProofById(proofId){
     return res.rows[0]
 }
 
-module.exports={createPaymentProof,getPaymentProofByOrder,updatePaymentProofStatus,findPaymentProofById}
+module.exports={createPaymentProof,getPaymentProofByOrder,updatePaymentProofStatus,findPaymentProofById, getPaymentProofByStand}
