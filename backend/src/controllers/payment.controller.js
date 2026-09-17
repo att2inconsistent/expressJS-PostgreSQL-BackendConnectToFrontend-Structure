@@ -85,4 +85,4 @@ async function getPaymentProofByOrderController(req,res,next) {
             next(error)
         }
     }
-module.exports = { uploadPaymentProofController, reviewPaymentProofController, getPaymentProofByOrderController}
+module.exports = { uploadPaymentProofController, reviewPaymentProofController, getPaymentProofByOrderController, getPaymentProofByStandController}
