@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import api from '../../utils/api'
 
-function buildImgUrl(){
+function buildImgUrl(imageUrl){
     const filename = imageUrl.split(/[/\\]/).pop();
     return `http://localhost:3000/uploads/${filename}`;
 }
 
 function ReviewPayments() {
     const [proofs, setProofs]=useState([])
-    const [loading, setLoading]=(true)
+    const [loading, setLoading]=useState(true)
 
     async function fetchProofs() {
         try {
@@ -22,12 +22,12 @@ function ReviewPayments() {
     }
 
     useEffect(()=>{
-        fetchProofs
+        fetchProofs()
     }, [])
 
     async function handleReview(proofId, newStatus) {
         try{
-            await api.patch(`/payment/${proofId}/review`, {status, newStatus})
+            await api.patch(`/payment/${proofId}/review`, {status: newStatus})
             fetchProofs()
         }catch(err){
             console.error(err)
