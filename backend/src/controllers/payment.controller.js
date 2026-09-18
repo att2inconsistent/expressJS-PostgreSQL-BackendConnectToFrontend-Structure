@@ -15,7 +15,7 @@ async function uploadPaymentProofController(req,res, next) {
         if(!order || order.user_id !== customerId){
             return res.status(403).json({ error: 'Order does not belong to the customer' });
         }
-        const imgUrl = req.file.path
+        const imgUrl = req.file.filename
         const paymentProof = await createPaymentProof(orderId, imgUrl);
         return res.status(201).json({ message: 'Payment proof uploaded successfully', paymentProof });
     }catch(error){
