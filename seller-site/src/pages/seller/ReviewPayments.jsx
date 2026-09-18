@@ -45,7 +45,7 @@ function ReviewPayments() {
                 <div key={proof.id}>
                     <p>Order #{proof.order_id} — {proof.status}</p>
                     <img
-                        src={buildImageUrl(proof.image_url)}
+                        src={buildImgUrl(proof.image_url)}
                         alt="Payment proof"
                         style={{ maxWidth: '200px' }}
                     />
