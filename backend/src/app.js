@@ -28,7 +28,11 @@ app.use('/menu', menuRoutes);
 app.use('/order', orderRoutes);
 app.use('/payment', paymentRoutes);
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+    setHeaders: (res) => {
+        res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+    }
+}));
 
 app.get('/test', async (req, res) => {
     try {
