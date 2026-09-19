@@ -21,7 +21,8 @@ async function findApplicationByUserId(userId) {
 }
 
 async function getPendingApplications(){
-    const res=await pool.query(`
+    const query={
+        text:`
             SELECT 
                 seller_applications.*,
                 users.username,
@@ -29,7 +30,8 @@ async function getPendingApplications(){
             FROM seller_applications
             JOIN users ON seller_applications.user_id = users.id
             WHERE seller_applications.status = 'pending'
-        `)
+        `}
+    const res=await pool.query(query)
     return res.rows
 }
 
