@@ -7,7 +7,7 @@ function SellerApplications() {
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    async function fetchOrders() {
+    async function fetchApplications() {
         try {
             const response = await api.get('/admin/seller-applications');
             setApplications(response.data.application);
@@ -19,13 +19,13 @@ function SellerApplications() {
     }
 
     useEffect(() => {
-        fetchOrders();
+        fetchApplications();
     }, []);
 
     async function handleStatusChange(applicationId, newStatus) {
         try{
             await api.patch(`/admin/seller-applications/${applicationId}`, { status: newStatus });
-            fetchOrders();
+            fetchApplications();
         }catch(err){
             console.error(err);
         }
@@ -38,7 +38,7 @@ function SellerApplications() {
     return(
         <div>
             <h1>Incoming Applications</h1>
-            {applications.length === 0 && <p>No orders yet.</p>}
+            {applications.length === 0 && <p>No applications yet.</p>}
             {applications.map((application) => (
                 <div key={application.id}>
                     <p>{application.username} ({application.email}) — {application.status}</p>
