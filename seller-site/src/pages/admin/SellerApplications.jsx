@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import api from '../../utils/api';
 
-const STATUS_OPTIONS = ['accepted','rejected'];
+const STATUS_OPTIONS = ['approved','rejected'];
 
 function SellerApplications() {
     const [applications, setApplications] = useState([]);
