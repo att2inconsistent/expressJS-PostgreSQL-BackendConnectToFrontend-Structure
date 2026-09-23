@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import api from '../../utils/api';
 
-const STATUS_OPTIONS = ['pending', 'accepted','rejected'];
+const STATUS_OPTIONS = ['accepted','rejected'];
 
 function SellerApplications() {
     const [applications, setApplications] = useState([]);
@@ -41,7 +41,7 @@ function SellerApplications() {
             {applications.length === 0 && <p>No orders yet.</p>}
             {applications.map((application) => (
                 <div key={application.id}>
-                    <p>Order #{application.id} — {application.status}</p>
+                    <p>{application.username} ({application.email}) — {application.status}</p>
                     <select value={application.status} onChange={(e) => handleStatusChange(application.id, e.target.value)}>
                         {STATUS_OPTIONS.map((status) => (
                             <option key={status} value={status}>
