@@ -24,7 +24,7 @@ function SellerApplications() {
 
     async function handleStatusChange(applicationId, newStatus) {
         try{
-            await api.patch(`/admin/seller-applications/${applicationId}/status`, { status: newStatus });
+            await api.patch(`/admin/seller-applications/${applicationId}`, { status: newStatus });
             fetchOrders();
         }catch(err){
             console.error(err);
